@@ -1,0 +1,26 @@
+[project]
+name = "halo-battery"
+# Keep in sync with VERSION in halo_battery.pyw, then run `uv lock`.
+version = "1.15.0"
+description = "Battery levels of wireless mice, keyboards, headsets and controllers in the Windows system tray."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+    "hidapi>=0.14",
+    "pillow>=10",
+    "pystray>=0.19",
+]
+
+[project.urls]
+Homepage = "https://github.com/HeyOkay/HaloBattery"
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.0",
+]
+
+[tool.uv]
+# The app runs from source and is built with PyInstaller; it is not installed as a package.
+package = false

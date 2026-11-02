@@ -26,10 +26,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: "3.12"
+          enable-cache: true
 
       - name: Check that the tag matches VERSION
         if: github.ref_type == 'tag'
@@ -45,17 +46,17 @@ jobs:
           Write-Host "Version $ver"
 
       - name: Install dependencies
-        run: python -m pip install -r requirements.txt pyinstaller
+        run: uv sync --locked
 
       - name: Smoke test
         # imports every module and runs one full poll on the runner (no devices there)
-        run: python halo_battery.pyw --probe
+        run: uv run --locked python halo_battery.pyw --probe
 
       - name: Build HaloBattery
         run: |
-          python tools/make_icon.py halo.ico
-          python tools/make_version.py version_info.txt
-          python -m PyInstaller --noconfirm --onedir --windowed --noupx --name HaloBattery --icon halo.ico --version-file version_info.txt --hidden-import hid --hidden-import pystray._win32 halo_battery.pyw
+          uv run --locked python tools/make_icon.py halo.ico
+          uv run --locked python tools/make_version.py version_info.txt
+          uv run --locked python -m PyInstaller --noconfirm --onedir --windowed --noupx --name HaloBattery --icon halo.ico --version-file version_info.txt --hidden-import hid --hidden-import pystray._win32 halo_battery.pyw
 
       - name: Zip the HaloBattery folder
         id: zip
@@ -77,7 +78,7 @@ jobs:
       - name: Release notes from CHANGELOG.md
         if: github.ref_type == 'tag'
         # fails if CHANGELOG.md has no section for this version
-        run: python tools/release_notes.py ${{ github.ref_name }} --out release_notes.md
+        run: uv run --locked python tools/release_notes.py ${{ github.ref_name }} --out release_notes.md
 
       - name: Attach to release
         if: github.ref_type == 'tag'

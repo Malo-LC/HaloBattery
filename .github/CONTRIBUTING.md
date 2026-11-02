@@ -69,10 +69,10 @@ Bluetooth devices: Halo Battery shows the level that Windows itself reports. If 
    - imported in `providers/__init__.py`;
    - added to the provider list in `halo_battery.pyw` (the app and `--probe` use it).
 3. Only send commands that come from a source you can name. Put the source (project, file and line, or your capture) in a comment at the top of the provider.
-4. Add unit tests in `tests/`. They use fake HID devices, so no hardware is necessary. Run all tests from the repository root:
+4. Add unit tests in `tests/`. They use fake HID devices, so no hardware is necessary. Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run all tests from the repository root:
 
    ```
-   python -m unittest discover -s tests
+   uv run python -m unittest discover -s tests
    ```
 
 5. Add a line to `CHANGELOG.md` under `[Unreleased]`, a row to the table in `docs/devices.md`, and a section in `docs/protocols.md` that tells how the device is read and names the source.

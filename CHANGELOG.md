@@ -7,6 +7,9 @@ and the project follows [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- **Python and dependencies are managed with uv**: `pyproject.toml` and `uv.lock` replace
+  `requirements.txt`. The .bat helpers and the release workflow use `uv sync` and `uv run`,
+  so development, tests and release builds share the same Python 3.12 environment.
 - **A tidier repository and a shorter README**: the app's modules moved into the `halo/`
   package (`halo_battery.pyw` stays the entry point), the .bat helpers into `scripts/`
   and CONTRIBUTING.md into `.github/`. The README now fits on one screen; the full list of

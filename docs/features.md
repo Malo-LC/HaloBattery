@@ -53,8 +53,8 @@ To keep the settings, the log and the battery history next to the app instead of
 
 ## Run from source
 
-1. Install [Python 3.10+](https://www.python.org/downloads/) with **Add python.exe to PATH** checked.
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/). It downloads the Python version in `.python-version` and manages the dependencies.
 2. Download or clone this repository somewhere permanent, e.g. `C:\Tools\HaloBattery`.
 3. Run `scripts\install_and_run.bat`, then right-click the tray icon → **Start with Windows**.
 
-`scripts\probe.bat` polls once and prints what was found in a console window. `scripts\build_exe.bat` builds the app yourself into `dist\HaloBattery`. Releases are built automatically: pushing a tag like `v1.8.0` makes GitHub Actions build the app and attach the zip (`.github/workflows/release.yml`).
+`scripts\probe.bat` polls once and prints what was found in a console window. `scripts\build_exe.bat` builds the app yourself into `dist\HaloBattery`. To run the commands by hand, use `uv sync` once, then `uv run python halo_battery.pyw --probe` or `uv run python halo_battery.pyw`. Releases are built automatically: pushing a tag like `v1.8.0` makes GitHub Actions build the app and attach the zip (`.github/workflows/release.yml`).
